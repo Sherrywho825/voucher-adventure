@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>憑證大冒險：企業稅務實戰指南</title>
+<title>星際憑單大冒險：企業稅務實戰指南</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -275,8 +275,8 @@ canvas#starfield{position:fixed;inset:0;z-index:0;pointer-events:none;}
 ════════════════════════════════════════ -->
 <div id="s-title" class="screen active">
   <div style="text-align:center;max-width:680px;padding:50px 20px 60px;">
-    <div class="logo-wrap" style="animation:orbit 4s ease-in-out infinite;">🏛️📋💼</div>
-    <div class="game-title">憑證大冒險<br><span style="font-size:11px;color:var(--purple);">企業稅務實戰指南</span></div>
+    <div class="logo-wrap" style="animation:orbit 4s ease-in-out infinite;">🛸🌌📡</div>
+    <div class="game-title">星際憑單大冒險<br><span style="font-size:11px;color:var(--purple);">企業稅務實戰指南</span></div>
     <div class="game-sub">20道真實情境 · 測試您的稅務直覺 · 地雷題大扣血</div>
     <div class="badge-row">
       <div class="badge b-cyan">💚 20道情境關卡</div>
@@ -292,14 +292,14 @@ canvas#starfield{position:fixed;inset:0;z-index:0;pointer-events:none;}
      CHARACTER SELECT
 ════════════════════════════════════════ -->
 <div id="s-char" class="screen">
-  <div class="section-title">選擇你的角色</div>
-  <div class="section-sub">每個角色有獨特起始屬性，影響金幣獲取倍率</div>
+  <div class="section-title">選擇你的星際職位</div>
+  <div class="section-sub">每個職位有獨特起始屬性，影響金幣獲取倍率</div>
   <div class="char-grid">
     <div class="char-card" onclick="selectChar('boss')" id="c-boss">
-      <div class="char-emoji">👔</div>
-      <div class="char-name">老闆</div>
-      <div class="char-en" style="color:var(--red);">The Boss</div>
-      <div class="char-desc">亂花錢型。容易產生大量不合格憑證，面臨極高查帳風險。</div>
+      <div class="char-emoji">🛸</div>
+      <div class="char-name">星艦艦長</div>
+      <div class="char-en" style="color:var(--red);">The Captain</div>
+      <div class="char-desc">亂花軍費型。容易產生大量不合格憑證，面臨極高查帳風險。</div>
       <div class="char-stats">
         <div class="stat-row"><span style="color:var(--gray);">❤️ 初始HP</span><span style="color:var(--red);">100</span></div>
         <div class="stat-row"><span style="color:var(--gray);">🔍 查帳風險</span><span style="color:var(--red);">HIGH ⚠️</span></div>
@@ -307,19 +307,19 @@ canvas#starfield{position:fixed;inset:0;z-index:0;pointer-events:none;}
       </div>
     </div>
     <div class="char-card" onclick="selectChar('rookie')" id="c-rookie">
-      <div class="char-emoji">📚</div>
-      <div class="char-name">新手會計</div>
+      <div class="char-emoji">🤖</div>
+      <div class="char-name">菜鳥財務官</div>
       <div class="char-en" style="color:var(--orange);">The Rookie</div>
       <div class="char-desc">容易犯錯型。法規熟悉度低，容易在扣抵營業稅的判斷上失誤。</div>
       <div class="char-stats">
         <div class="stat-row"><span style="color:var(--gray);">❤️ 初始HP</span><span style="color:var(--red);">100</span></div>
-        <div class="stat-row"><span style="color:var(--gray);">📖 法規熟悉</span><span style="color:var(--orange);">LOW ⚠️</span></div>
+        <div class="stat-row"><span style="color:var(--gray);">📡 法規熟悉</span><span style="color:var(--orange);">LOW ⚠️</span></div>
         <div class="stat-row"><span style="color:var(--gray);">🪙 金幣倍率</span><span style="color:var(--gold);">× 1.2</span></div>
       </div>
     </div>
     <div class="char-card" onclick="selectChar('entrepreneur')" id="c-entrepreneur">
-      <div class="char-emoji">🚀</div>
-      <div class="char-name">創業者</div>
+      <div class="char-emoji">⚡</div>
+      <div class="char-name">星際創業者</div>
       <div class="char-en" style="color:var(--green);">The Entrepreneur</div>
       <div class="char-desc">最貼近真實。兼顧業務與帳務，極需建立正確的稅務直覺。</div>
       <div class="char-stats">
@@ -346,8 +346,8 @@ canvas#starfield{position:fixed;inset:0;z-index:0;pointer-events:none;}
     <!-- HUD -->
     <div class="hud">
       <div class="hud-char">
-        <span class="hud-char-emoji" id="hud-emoji">🚀</span>
-        <div><div class="hud-char-name" id="hud-name">創業者</div></div>
+        <span class="hud-char-emoji" id="hud-emoji">⚡</span>
+        <div><div class="hud-char-name" id="hud-name">星際創業者</div></div>
       </div>
       <div class="hud-hp">
         <div class="hp-label">❤️ 生命值 HP</div>
@@ -731,9 +731,9 @@ const QS=[
 // GAME STATE
 // ════════════════════════════════════════
 const CHARS={
-  boss:{emoji:'👔',name:'老闆',mult:1.0},
-  rookie:{emoji:'📚',name:'新手會計',mult:1.2},
-  entrepreneur:{emoji:'🚀',name:'創業者',mult:1.5}
+  boss:{emoji:'🛸',name:'星艦艦長',mult:1.0},
+  rookie:{emoji:'🤖',name:'菜鳥財務官',mult:1.2},
+  entrepreneur:{emoji:'⚡',name:'星際創業者',mult:1.5}
 };
 let G={char:null,hp:100,gold:0,qi:0,score:0,okCount:0,
   sel:[null,null,null],answered:false,col:[],
