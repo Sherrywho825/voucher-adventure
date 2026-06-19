@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>星際憑單大冒險：艦隊財務實戰指南</title>
+<title>憑證大冒險：企業稅務實戰指南</title>
 <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Noto+Sans+TC:wght@400;700;900&display=swap" rel="stylesheet">
 <style>
 :root{
@@ -50,14 +50,10 @@ canvas#starfield{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .char-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;max-width:900px;width:100%;}
 .char-card{background:var(--card);border:1px solid var(--gray);border-radius:12px;padding:28px 18px;
   text-align:center;cursor:pointer;transition:all .3s;position:relative;overflow:hidden;}
-.char-card::before{content:'';position:absolute;inset:0;border-radius:12px;
-  background:linear-gradient(135deg,rgba(0,212,255,.0),rgba(178,79,255,.0));transition:all .3s;}
 .char-card:hover{border-color:var(--cyan);transform:translateY(-5px);
   box-shadow:0 10px 32px rgba(0,212,255,.2),0 0 0 1px rgba(0,212,255,.3);}
-.char-card:hover::before{background:linear-gradient(135deg,rgba(0,212,255,.06),rgba(178,79,255,.06));}
 .char-card.selected{border-color:var(--cyan);
   box-shadow:0 0 20px rgba(0,212,255,.3),0 0 0 1px var(--cyan);}
-.char-card.selected::before{background:linear-gradient(135deg,rgba(0,212,255,.08),rgba(178,79,255,.08));}
 .char-emoji{font-size:52px;margin-bottom:12px;}
 .char-name{font-size:18px;font-weight:900;color:var(--cyan);margin-bottom:4px;}
 .char-en{font-size:11px;margin-bottom:10px;letter-spacing:1px;}
@@ -100,16 +96,18 @@ canvas#starfield{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .prog-inner{height:100%;background:linear-gradient(90deg,var(--cyan),var(--purple));
   border-radius:2px;transition:width .4s ease;box-shadow:0 0 8px rgba(0,212,255,.6);}
 
-/* ── TERMINAL CARD ── */
+/* ── TERMINAL CARD (發票/憑證區) ── */
 .receipt{background:linear-gradient(135deg,#010c1f,#001428);
   border:1px solid rgba(0,212,255,.45);border-radius:6px;padding:28px;
   margin-bottom:16px;box-shadow:0 0 24px rgba(0,212,255,.08),0 4px 24px rgba(0,0,0,.8);
   position:relative;overflow:hidden;width:100%;}
+/* 四角裝飾 */
 .receipt::before,.receipt::after{content:'';position:absolute;width:14px;height:14px;}
 .receipt::before{top:8px;left:8px;border-top:2px solid var(--cyan);border-left:2px solid var(--cyan);}
 .receipt::after{bottom:8px;right:8px;border-bottom:2px solid var(--cyan);border-right:2px solid var(--cyan);}
 .receipt.trap-card{border-color:rgba(255,45,85,.6);}
 .receipt.trap-card::before,.receipt.trap-card::after{border-color:var(--red);}
+/* 掃描線 */
 .scanlines{position:absolute;inset:0;
   background:repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(0,0,0,.04) 3px,rgba(0,0,0,.04) 4px);
   pointer-events:none;}
@@ -120,10 +118,10 @@ canvas#starfield{position:fixed;inset:0;z-index:0;pointer-events:none;}
   margin-bottom:8px;background:var(--cyan);color:#030714;letter-spacing:1px;}
 .q-badge.trap{background:var(--red);color:#fff;}
 .receipt-title{font-size:16px;font-weight:900;color:var(--white);}
-.receipt-body{font-size:13px;line-height:1.9;color:#a0d4ff;
+.receipt-body{font-size:14px;line-height:1.9;color:#c8e0ff;
   background:rgba(0,0,0,.35);padding:14px;border-radius:4px;
-  border-left:3px solid var(--cyan);white-space:pre-line;font-family:monospace;}
-.receipt-body.trap-scenario{border-left-color:var(--red);color:#ffb3c0;}
+  border-left:3px solid var(--cyan);white-space:pre-line;}
+.receipt-body.trap-scenario{border-left-color:var(--red);color:#ffccd5;}
 
 /* ── QUESTION PANEL ── */
 .q-panel{background:var(--card);border:1px solid rgba(0,212,255,.15);
@@ -140,20 +138,19 @@ canvas#starfield{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .opt-btn:hover:not(:disabled){border-color:var(--cyan);color:var(--cyan);
   box-shadow:0 0 8px rgba(0,212,255,.2);}
 .opt-btn.sel{background:rgba(0,212,255,.15);border-color:var(--cyan);
-  color:var(--cyan);font-weight:700;box-shadow:0 0 10px rgba(0,212,255,.3);}
+  color:var(--cyan);font-weight:700;box-shadow:0 0 10px rgba(0,212,255,.25);}
 .opt-btn.reveal-correct{background:rgba(0,255,157,.15);border-color:var(--green);
   color:var(--green);font-weight:700;}
 .opt-btn.reveal-wrong{background:rgba(255,45,85,.15);border-color:var(--red);
   color:var(--red);font-weight:700;}
 .opt-btn:disabled{cursor:default;}
 .btn-confirm{width:100%;padding:14px;
-  background:linear-gradient(135deg,rgba(0,212,255,.2),rgba(178,79,255,.2));
+  background:linear-gradient(135deg,rgba(0,212,255,.15),rgba(178,79,255,.15));
   border:1px solid var(--cyan);border-radius:6px;font-size:16px;font-weight:900;
-  color:var(--cyan);cursor:pointer;transition:all .2s;font-family:'Noto Sans TC',sans-serif;
-  letter-spacing:1px;}
+  color:var(--cyan);cursor:pointer;transition:all .2s;font-family:'Noto Sans TC',sans-serif;}
 .btn-confirm:disabled{border-color:var(--gray);color:var(--gray);cursor:not-allowed;opacity:.5;}
-.btn-confirm:not(:disabled):hover{background:linear-gradient(135deg,rgba(0,212,255,.3),rgba(178,79,255,.3));
-  box-shadow:0 0 20px rgba(0,212,255,.3);}
+.btn-confirm:not(:disabled):hover{background:linear-gradient(135deg,rgba(0,212,255,.25),rgba(178,79,255,.25));
+  box-shadow:0 0 20px rgba(0,212,255,.25);}
 
 /* ── FEEDBACK PANEL ── */
 .fb-panel{background:var(--card);border:1px solid rgba(0,212,255,.15);
@@ -168,11 +165,10 @@ canvas#starfield{position:fixed;inset:0;z-index:0;pointer-events:none;}
   border-radius:6px;padding:14px;font-size:13px;line-height:1.9;color:var(--white);
   margin-bottom:16px;}
 .btn-next{width:100%;padding:14px;
-  background:linear-gradient(135deg,rgba(0,212,255,.15),rgba(178,79,255,.15));
+  background:linear-gradient(135deg,rgba(0,212,255,.12),rgba(178,79,255,.12));
   border:1px solid rgba(0,212,255,.5);border-radius:6px;font-size:16px;font-weight:900;
-  color:var(--white);cursor:pointer;transition:all .2s;font-family:'Noto Sans TC',sans-serif;
-  letter-spacing:1px;}
-.btn-next:hover{box-shadow:0 0 20px rgba(0,212,255,.25);border-color:var(--cyan);}
+  color:var(--white);cursor:pointer;transition:all .2s;font-family:'Noto Sans TC',sans-serif;}
+.btn-next:hover{box-shadow:0 0 20px rgba(0,212,255,.2);border-color:var(--cyan);}
 .btn-next.danger{border-color:var(--red);color:var(--red);}
 
 /* ── WARNING OVERLAY ── */
@@ -185,7 +181,7 @@ canvas#starfield{position:fixed;inset:0;z-index:0;pointer-events:none;}
   box-shadow:0 0 60px rgba(255,45,85,.5);}
 @keyframes warnpulse{
   from{box-shadow:0 0 20px rgba(255,45,85,.5);}
-  to{box-shadow:0 0 70px rgba(255,45,85,1),0 0 120px rgba(255,45,85,.4);}
+  to{box-shadow:0 0 70px rgba(255,45,85,1),0 0 120px rgba(255,45,85,.35);}
 }
 .warn-ico{font-size:56px;margin-bottom:16px;animation:shake .3s ease-in-out infinite;}
 @keyframes shake{0%,100%{transform:translateX(0);}25%{transform:translateX(-4px);}75%{transform:translateX(4px);}}
@@ -207,7 +203,7 @@ canvas#starfield{position:fixed;inset:0;z-index:0;pointer-events:none;}
 .result-rank{font-size:72px;margin-bottom:10px;}
 .result-title{font-size:24px;font-weight:900;color:var(--cyan);margin-bottom:8px;
   text-shadow:0 0 12px rgba(0,212,255,.4);}
-.stars{font-size:22px;letter-spacing:5px;margin:8px 0 18px;}
+.stars{font-size:22px;letter-spacing:5px;margin:8px 0 18px;color:var(--gold);}
 .result-nums{display:flex;justify-content:center;gap:24px;margin:18px 0;flex-wrap:wrap;}
 .result-num-item{text-align:center;}
 .result-num-label{font-size:11px;color:var(--gray);}
@@ -217,7 +213,7 @@ canvas#starfield{position:fixed;inset:0;z-index:0;pointer-events:none;}
   border-radius:8px;padding:18px;margin-bottom:22px;color:#ffaabb;font-size:13px;line-height:1.8;}
 .cta-btn{display:block;width:100%;padding:17px;border-radius:6px;border:none;
   font-size:16px;font-weight:900;cursor:pointer;transition:all .3s;
-  margin-bottom:12px;font-family:'Noto Sans TC',sans-serif;letter-spacing:1px;}
+  margin-bottom:12px;font-family:'Noto Sans TC',sans-serif;}
 .cta-cyan{background:linear-gradient(135deg,var(--cyan),var(--purple));color:#030714;}
 .cta-green{background:linear-gradient(135deg,var(--green),#00b267);color:#030714;}
 .cta-red{background:linear-gradient(135deg,var(--red),#c0002a);color:#fff;
@@ -248,7 +244,7 @@ canvas#starfield{position:fixed;inset:0;z-index:0;pointer-events:none;}
 @keyframes lpulse{0%,100%{box-shadow:inset 0 0 0 0 transparent;}50%{box-shadow:inset 0 0 40px 6px rgba(255,45,85,.15);}}
 .hp-low{animation:lpulse 1s ease-in-out infinite;}
 
-/* ── MODAL ── */
+/* ── CTA MODAL ── */
 .modal-cta{position:fixed;inset:0;background:rgba(0,0,0,.75);display:none;
   align-items:center;justify-content:center;z-index:998;padding:20px;}
 .modal-cta.show{display:flex;}
@@ -267,14 +263,6 @@ canvas#starfield{position:fixed;inset:0;z-index:0;pointer-events:none;}
   .opts{gap:6px;}
   .opt-btn{font-size:12px;padding:8px 12px;}
 }
-
-/* ── SCANLINE ANIMATION on trap ── */
-@keyframes glitch{
-  0%,100%{clip-path:inset(0 0 100% 0);}
-  20%{clip-path:inset(20% 0 60% 0);}
-  40%{clip-path:inset(50% 0 30% 0);}
-  60%{clip-path:inset(80% 0 5% 0);}
-}
 </style>
 </head>
 <body>
@@ -282,71 +270,75 @@ canvas#starfield{position:fixed;inset:0;z-index:0;pointer-events:none;}
 <canvas id="starfield"></canvas>
 <div class="nebula"></div>
 
-<!-- ═══════════════════ TITLE ═══════════════════ -->
+<!-- ═══════════════════════════════════════
+     TITLE SCREEN
+════════════════════════════════════════ -->
 <div id="s-title" class="screen active">
   <div style="text-align:center;max-width:680px;padding:50px 20px 60px;">
-    <div class="logo-wrap">🛸🌌📡</div>
-    <div class="game-title">星際憑單大冒險<br><span style="font-size:11px;color:var(--purple);">INTERSTELLAR VOUCHER QUEST</span></div>
-    <div class="game-sub">艦隊財務實戰指南｜20道星際任務</div>
+    <div class="logo-wrap" style="animation:orbit 4s ease-in-out infinite;">🏛️📋💼</div>
+    <div class="game-title">憑證大冒險<br><span style="font-size:11px;color:var(--purple);">企業稅務實戰指南</span></div>
+    <div class="game-sub">20道真實情境 · 測試您的稅務直覺 · 地雷題大扣血</div>
     <div class="badge-row">
-      <div class="badge b-cyan">🌌 20道任務關卡</div>
-      <div class="badge b-purple">💎 星幣獎勵系統</div>
-      <div class="badge b-red">💣 地雷陷阱任務</div>
+      <div class="badge b-cyan">💚 20道情境關卡</div>
+      <div class="badge b-purple">🪙 金幣獎勵系統</div>
+      <div class="badge b-red">💣 地雷陷阱題</div>
     </div>
-    <button class="btn-main" onclick="showScreen('s-char')">🚀 開始任務</button>
-    <div class="title-note">By 星際財務指揮部｜正確稅務知識從這裡開始</div>
+    <button class="btn-main" onclick="showScreen('s-char')">🎮 開始遊戲</button>
+    <div class="title-note">By 專業會計師事務所｜正確稅務知識從這裡開始</div>
   </div>
 </div>
 
-<!-- ═══════════════════ CHAR SELECT ═══════════════════ -->
+<!-- ═══════════════════════════════════════
+     CHARACTER SELECT
+════════════════════════════════════════ -->
 <div id="s-char" class="screen">
-  <div class="section-title">選擇你的星際職位</div>
-  <div class="section-sub">每個職位擁有不同屬性，影響星幣獲取倍率</div>
+  <div class="section-title">選擇你的角色</div>
+  <div class="section-sub">每個角色有獨特起始屬性，影響金幣獲取倍率</div>
   <div class="char-grid">
     <div class="char-card" onclick="selectChar('boss')" id="c-boss">
-      <div class="char-emoji">🛸</div>
-      <div class="char-name">星艦艦長</div>
-      <div class="char-en" style="color:var(--red);">THE CAPTAIN</div>
-      <div class="char-desc">亂花軍費型。容易產生大量不合格憑單，面臨極高稽查艦隊掃描風險。</div>
+      <div class="char-emoji">👔</div>
+      <div class="char-name">老闆</div>
+      <div class="char-en" style="color:var(--red);">The Boss</div>
+      <div class="char-desc">亂花錢型。容易產生大量不合格憑證，面臨極高查帳風險。</div>
       <div class="char-stats">
-        <div class="stat-row"><span style="color:var(--gray);">🛡️ 護盾值</span><span style="color:var(--red);">100 SP</span></div>
-        <div class="stat-row"><span style="color:var(--gray);">🔍 稽查風險</span><span style="color:var(--red);">HIGH ⚠️</span></div>
-        <div class="stat-row"><span style="color:var(--gray);">💎 星幣倍率</span><span style="color:var(--gold);">× 1.0</span></div>
+        <div class="stat-row"><span style="color:var(--gray);">❤️ 初始HP</span><span style="color:var(--red);">100</span></div>
+        <div class="stat-row"><span style="color:var(--gray);">🔍 查帳風險</span><span style="color:var(--red);">HIGH ⚠️</span></div>
+        <div class="stat-row"><span style="color:var(--gray);">🪙 金幣倍率</span><span style="color:var(--gold);">× 1.0</span></div>
       </div>
     </div>
     <div class="char-card" onclick="selectChar('rookie')" id="c-rookie">
-      <div class="char-emoji">🤖</div>
-      <div class="char-name">菜鳥財務官</div>
-      <div class="char-en" style="color:var(--orange);">THE ROOKIE</div>
-      <div class="char-desc">容易犯錯型。法規資料庫不完整，常在貿易稅扣抵判斷上發生系統錯誤。</div>
+      <div class="char-emoji">📚</div>
+      <div class="char-name">新手會計</div>
+      <div class="char-en" style="color:var(--orange);">The Rookie</div>
+      <div class="char-desc">容易犯錯型。法規熟悉度低，容易在扣抵營業稅的判斷上失誤。</div>
       <div class="char-stats">
-        <div class="stat-row"><span style="color:var(--gray);">🛡️ 護盾值</span><span style="color:var(--red);">100 SP</span></div>
-        <div class="stat-row"><span style="color:var(--gray);">📡 法規資料庫</span><span style="color:var(--orange);">LOW ⚠️</span></div>
-        <div class="stat-row"><span style="color:var(--gray);">💎 星幣倍率</span><span style="color:var(--gold);">× 1.2</span></div>
+        <div class="stat-row"><span style="color:var(--gray);">❤️ 初始HP</span><span style="color:var(--red);">100</span></div>
+        <div class="stat-row"><span style="color:var(--gray);">📖 法規熟悉</span><span style="color:var(--orange);">LOW ⚠️</span></div>
+        <div class="stat-row"><span style="color:var(--gray);">🪙 金幣倍率</span><span style="color:var(--gold);">× 1.2</span></div>
       </div>
     </div>
     <div class="char-card" onclick="selectChar('entrepreneur')" id="c-entrepreneur">
-      <div class="char-emoji">⚡</div>
-      <div class="char-name">星際創業者</div>
-      <div class="char-en" style="color:var(--green);">THE ENTREPRENEUR</div>
-      <div class="char-desc">最貼近真實。同時兼顧星際業務與帳務，急需建立正確的財務直覺。</div>
+      <div class="char-emoji">🚀</div>
+      <div class="char-name">創業者</div>
+      <div class="char-en" style="color:var(--green);">The Entrepreneur</div>
+      <div class="char-desc">最貼近真實。兼顧業務與帳務，極需建立正確的稅務直覺。</div>
       <div class="char-stats">
-        <div class="stat-row"><span style="color:var(--gray);">🛡️ 護盾值</span><span style="color:var(--red);">100 SP</span></div>
-        <div class="stat-row"><span style="color:var(--gray);">✨ 潛力等級</span><span style="color:var(--green);">HIGH ⭐</span></div>
-        <div class="stat-row"><span style="color:var(--gray);">💎 星幣倍率</span><span style="color:var(--gold);">× 1.5</span></div>
+        <div class="stat-row"><span style="color:var(--gray);">❤️ 初始HP</span><span style="color:var(--red);">100</span></div>
+        <div class="stat-row"><span style="color:var(--gray);">✨ 潛力值</span><span style="color:var(--green);">HIGH ⭐</span></div>
+        <div class="stat-row"><span style="color:var(--gray);">🪙 金幣倍率</span><span style="color:var(--gold);">× 1.5</span></div>
       </div>
     </div>
   </div>
   <div class="confirm-area" id="confirm-area" style="display:none;">
     <div class="confirm-info" id="confirm-info"></div>
-    <button class="btn-main" onclick="startGame()" style="font-size:16px;padding:15px 48px;">
-      ⚡ 確認職位，啟動任務！
-    </button>
+    <button class="btn-main" onclick="startGame()" style="font-size:16px;padding:15px 48px;">✅ 確認選擇，開始闖關！</button>
   </div>
-  <button class="btn-back" onclick="showScreen('s-title')">← 返回基地</button>
+  <button class="btn-back" onclick="showScreen('s-title')">← 返回首頁</button>
 </div>
 
-<!-- ═══════════════════ GAME ═══════════════════ -->
+<!-- ═══════════════════════════════════════
+     GAME SCREEN
+════════════════════════════════════════ -->
 <div id="s-game" class="screen">
   <div style="width:100%;max-width:800px;">
     <div class="prog-outer"><div class="prog-inner" id="prog-bar" style="width:0%"></div></div>
@@ -354,83 +346,85 @@ canvas#starfield{position:fixed;inset:0;z-index:0;pointer-events:none;}
     <!-- HUD -->
     <div class="hud">
       <div class="hud-char">
-        <span class="hud-char-emoji" id="hud-emoji">⚡</span>
-        <div><div class="hud-char-name" id="hud-name">星際創業者</div></div>
+        <span class="hud-char-emoji" id="hud-emoji">🚀</span>
+        <div><div class="hud-char-name" id="hud-name">創業者</div></div>
       </div>
       <div class="hud-hp">
-        <div class="hp-label">🛡️ 護盾值 SP</div>
+        <div class="hp-label">❤️ 生命值 HP</div>
         <div class="hp-track"><div class="hp-fill" id="hp-fill" style="width:100%;background:linear-gradient(90deg,#ff2d55,#ff9500);"></div></div>
         <div class="hp-txt"><span id="hp-val">100</span> / 100</div>
       </div>
       <div class="hud-gold">
-        <div class="hud-gold-label">💎 星幣</div>
+        <div class="hud-gold-label">🪙 金幣</div>
         <div class="hud-gold-val" id="gold-val">0</div>
       </div>
       <div class="hud-prog">
-        <div class="hud-prog-num">任務 <span id="q-num">1</span> / 20</div>
+        <div class="hud-prog-num">第 <span id="q-num">1</span> / 20 題</div>
         <div class="hud-prog-sub">✅ 正確：<span id="ok-count" style="color:var(--green);">0</span></div>
       </div>
     </div>
 
-    <!-- Terminal Card -->
+    <!-- 憑證卡 -->
     <div class="receipt" id="receipt">
       <div class="scanlines"></div>
       <div class="receipt-top">
-        <div class="receipt-cat" id="q-cat">任務分類</div>
-        <div class="receipt-ico" id="q-ico">📡</div>
-        <div class="q-badge" id="q-bdg">任務 01</div>
-        <div class="receipt-title" id="q-title">任務標題</div>
+        <div class="receipt-cat" id="q-cat">發票基本觀念</div>
+        <div class="receipt-ico" id="q-ico">🧾</div>
+        <div class="q-badge" id="q-bdg">第 1 題</div>
+        <div class="receipt-title" id="q-title">標題</div>
       </div>
-      <div class="receipt-body" id="q-body">任務內容</div>
+      <div class="receipt-body" id="q-body">情境描述</div>
     </div>
 
-    <!-- Question Panel -->
+    <!-- 作答區 -->
     <div class="q-panel" id="q-panel">
       <div class="sub-q">
-        <div class="sub-q-label"><div class="sub-q-num">1</div>📡 這份憑單<strong>可否記錄入艦隊帳冊</strong>（列為費用）？</div>
+        <div class="sub-q-label"><div class="sub-q-num">1</div>📋 這張憑證<strong>可不可以報帳</strong>（列為費用）？</div>
         <div class="opts" id="opts-0"></div>
       </div>
       <div class="sub-q">
-        <div class="sub-q-label"><div class="sub-q-num">2</div>⚡ 可否用來<strong>扣抵星際貿易稅</strong>（進項稅額）？</div>
+        <div class="sub-q-label"><div class="sub-q-num">2</div>💰 可不可以<strong>扣抵營業稅</strong>（進項稅額）？</div>
         <div class="opts" id="opts-1"></div>
       </div>
       <div class="sub-q">
-        <div class="sub-q-label"><div class="sub-q-num">3</div>🔍 是否面臨<strong>稽查艦隊掃描風險</strong>？</div>
+        <div class="sub-q-label"><div class="sub-q-num">3</div>⚠️ 有沒有<strong>稅務風險</strong>？</div>
         <div class="opts" id="opts-2"></div>
       </div>
       <button class="btn-confirm" id="btn-confirm" onclick="checkAnswers()" disabled>
-        ▸ 提交決策（請先完成上方 3 個選項）
+        📝 確認作答（請先完成上方 3 個選擇）
       </button>
     </div>
 
-    <!-- Feedback Panel -->
+    <!-- 回饋區 -->
     <div class="fb-panel" id="fb-panel">
       <div class="fb-header" id="fb-header"></div>
       <div class="fb-badges" id="fb-badges"></div>
       <div class="explain-box" id="explain-box"></div>
-      <button class="btn-next" id="btn-next" onclick="nextQuestion()">繼續任務 ▶</button>
+      <button class="btn-next" id="btn-next" onclick="nextQuestion()">下一題 ▶</button>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════ RESULTS ═══════════════════ -->
+<!-- ═══════════════════════════════════════
+     RESULTS SCREEN
+════════════════════════════════════════ -->
 <div id="s-results" class="screen">
   <div style="width:100%;max-width:700px;">
     <div class="result-card">
-      <div class="result-rank" id="r-rank">🌟</div>
+      <div class="result-rank" id="r-rank">🥇</div>
       <div class="result-title" id="r-title"></div>
-      <div class="stars" id="r-stars" style="color:var(--cyan);">★★★★★</div>
+      <div class="stars" id="r-stars">★★★★★</div>
       <div class="result-nums">
         <div class="result-num-item">
-          <div class="result-num-label">任務評分</div>
+          <div class="result-num-label">最終得分</div>
           <div class="result-num-val" id="r-score" style="color:var(--green);"></div>
         </div>
         <div class="result-num-item">
-          <div class="result-num-label">剩餘護盾</div>
+          <div class="result-num-label">剩餘 HP</div>
           <div class="result-num-val" id="r-hp" style="color:var(--red);"></div>
         </div>
         <div class="result-num-item">
-          <div class="result-num-label">獲得星幣</div>
+          <div class="result-num-label">獲得金幣</div>
           <div class="result-num-val" id="r-gold" style="color:var(--gold);"></div>
         </div>
       </div>
@@ -439,38 +433,42 @@ canvas#starfield{position:fixed;inset:0;z-index:0;pointer-events:none;}
       <div id="r-cta"></div>
     </div>
     <div class="collection-box">
-      <div class="col-title">🎖️ 本次任務掃描到的憑單紀錄：</div>
+      <div class="col-title">🎖️ 本次闖關收集到的憑證類型：</div>
       <div class="col-items" id="col-items"></div>
     </div>
-    <button class="btn-restart" onclick="restartGame()">🔄 重新任務</button>
+    <button class="btn-restart" onclick="restartGame()">🔄 再玩一次</button>
   </div>
 </div>
 
-<!-- ═══════════════════ WARNING OVERLAY ═══════════════════ -->
+<!-- ═══════════════════════════════════════
+     WARNING OVERLAY
+════════════════════════════════════════ -->
 <div class="warn-overlay" id="warn-overlay">
   <div class="warn-box">
     <div class="warn-ico">🚨</div>
-    <div class="warn-title">⚠️ ALERT!<br>SYSTEM BREACH!</div>
-    <div class="warn-msg" id="warn-msg">偵測到嚴重違規憑單...<br>稽查艦隊已鎖定你的艦隊位置！</div>
-    <div class="warn-hp" id="warn-hp-txt">SP -50 🛡️💥</div>
-    <button class="btn-warn-close" onclick="closeWarning()">我明白了，繼續執行任務</button>
+    <div class="warn-title">⚠️ CAUTION!<br>CRITICAL ERROR!</div>
+    <div class="warn-msg" id="warn-msg">我們發現你這幾張憑證有嚴重問題...<br>你的公司帳務可能正面臨國稅局巨大的查帳風險！</div>
+    <div class="warn-hp" id="warn-hp-txt">HP -50 🩸</div>
+    <button class="btn-warn-close" onclick="closeWarning()">我知道了，繼續闖關</button>
   </div>
 </div>
 
-<!-- ═══════════════════ CTA MODAL ═══════════════════ -->
+<!-- ═══════════════════════════════════════
+     CTA MODAL
+════════════════════════════════════════ -->
 <div class="modal-cta" id="modal-cta">
   <div class="modal-cta-box">
-    <div class="modal-cta-title" id="modal-title">🌟 任務完成！</div>
+    <div class="modal-cta-title" id="modal-title">🎉 恭喜！</div>
     <div class="modal-cta-body" id="modal-body"></div>
-    <button class="cta-btn cta-cyan" onclick="document.getElementById('modal-cta').classList.remove('show')" style="margin-bottom:10px;">📡 立即連線星際財務指揮官</button>
+    <button class="cta-btn cta-cyan" onclick="document.getElementById('modal-cta').classList.remove('show')" style="margin-bottom:10px;">📅 立即預約諮詢</button>
     <button class="modal-cta-close" onclick="document.getElementById('modal-cta').classList.remove('show')">稍後再說</button>
   </div>
 </div>
 
 <script>
-// ═══════════════════════════════════════
+// ════════════════════════════════════════
 // STARFIELD
-// ═══════════════════════════════════════
+// ════════════════════════════════════════
 (function(){
   const cv=document.getElementById('starfield');
   const ctx=cv.getContext('2d');
@@ -478,9 +476,9 @@ canvas#starfield{position:fixed;inset:0;z-index:0;pointer-events:none;}
   resize();
   window.addEventListener('resize',resize);
   const stars=Array.from({length:220},()=>({
-    x:Math.random()*cv.width, y:Math.random()*cv.height,
-    r:Math.random()*1.4+0.2, speed:Math.random()*0.25+0.03,
-    op:Math.random()*0.7+0.2, twinkle:Math.random()*Math.PI*2
+    x:Math.random()*cv.width,y:Math.random()*cv.height,
+    r:Math.random()*1.4+0.2,speed:Math.random()*0.25+0.03,
+    op:Math.random()*0.7+0.2,twinkle:Math.random()*Math.PI*2
   }));
   let t=0;
   function draw(){
@@ -500,242 +498,242 @@ canvas#starfield{position:fixed;inset:0;z-index:0;pointer-events:none;}
   draw();
 })();
 
-// ═══════════════════════════════════════
-// QUESTION DATABASE
-// ═══════════════════════════════════════
+// ════════════════════════════════════════
+// QUESTION DATABASE（原版稅務文字）
+// ════════════════════════════════════════
 const QS=[
   {
-    id:1,cat:"星際憑單基礎",ico:"🧾",trap:false,
-    title:"星艦修繕憑單（無星際商業識別碼 IBID）",
-    body:"維修技師完成星艦引擎修繕後，開立了一份維修憑單，但上面沒有打入貴艦隊的星際商業識別碼（IBID）。這份憑單要如何處理？",
-    o0:['✅ 可記入艦隊帳冊','❌ 不可記入帳冊','⚡ 條件式登錄'],
-    o1:['✅ 可扣抵星際貿易稅','❌ 不可扣抵','📡 訊號不穩定'],
-    o2:['🛡️ 安全，無威脅','⚠️ 偵測到風險','🚨 高度警戒！'],
+    id:1,cat:"發票基本觀念",ico:"🧾",trap:false,
+    title:"辦公室修繕工程發票（無統編）",
+    body:"修繕師傅完工後，開了一張普通發票給公司，但上面沒有打入貴公司的統一編號（統編）。這張發票要怎麼處理？",
+    o0:['✅ 可以報帳','❌ 不可報帳','⚡ 條件制'],
+    o1:['✅ 可以扣抵','❌ 不可扣抵','📋 視情況'],
+    o2:['✅ 無稅務風險','⚠️ 有風險','🚨 極高風險'],
     a:[0,1,1],
-    explain:"未打 IBID（星際商業識別碼）的憑單→絕對不得扣抵星際貿易稅！雖然可以記入帳冊，但沒有 IBID 就無法取得進項稅額扣抵。下次請務必要求對方在憑單上打入艦隊 IBID！",
-    pen:15,gold:20,col:"無IBID修繕憑單"
+    explain:"未打統編的發票→絕對不得扣抵營業稅！雖然可以列費用報帳，但無統編發票讓公司白白損失5%進項稅額。下次請一定記得請廠商開立時打入公司統編！",
+    pen:15,gold:20,col:"無統編普通發票"
   },
   {
-    id:2,cat:"A級憑單 vs B級憑單",ico:"📄",trap:false,
-    title:"應索取哪種等級的星際交易憑單？",
-    body:"修繕技師問你：「要開 B 級憑單（星民用）還是 A 級憑單（艦隊用，含扣抵聯）？」你是艦隊代表，應選哪個？\n\n(A) B 級憑單（一般星民使用）\n(B) A 級憑單（艦隊使用，可扣抵貿易稅）",
-    o0:['🅱️ 選B級憑單（星民用）','🅰️ 選A級憑單（艦隊用）','🤷 哪個都一樣'],
-    o1:['✅ B級可扣抵','✅ A級可扣抵','❌ 都不能扣抵'],
-    o2:['🛡️ 選B級無影響','⚠️ 選錯損失稅額','🚨 高度警戒！'],
+    id:2,cat:"三聯式 vs 二聯式",ico:"📄",trap:false,
+    title:"修繕工程發票該開哪種？",
+    body:"師傅完工後問你：「要開二聯式還是三聯式發票？」你是公司負責人，你會選哪個？\n\n(A) 二聯式發票（消費者用）\n(B) 三聯式發票（公司用，含扣抵聯）",
+    o0:['🅰️ 選二聯式','🅱️ 選三聯式','🤷 無所謂'],
+    o1:['✅ 二聯可扣抵','✅ 三聯可扣抵','❌ 都不能扣抵'],
+    o2:['✅ 選二聯無風險','⚠️ 選錯有損失','🚨 極高風險'],
     a:[1,1,1],
-    explain:"艦隊間交易→一定要索取「A 級憑單」！A 級才有扣抵聯，可合法扣抵星際貿易稅進項稅額。選 B 級就白白損失了 5% 的進項稅額，等於讓艦隊多繳了一筆稅！",
-    pen:15,gold:20,col:"A級星際交易憑單"
+    explain:"公司間交易→一定要索取「三聯式發票」！三聯式才有扣抵聯，可合法扣抵進項稅額。選二聯式就白白損失了5%的進項稅額，等於多繳了一筆稅！",
+    pen:15,gold:20,col:"三聯式統一發票"
   },
   {
-    id:3,cat:"外交聯盟費用陷阱",ico:"🍽️",trap:false,
-    title:"艦長宴請同盟代表的 B 級餐飲憑單",
-    body:"艦長昨天在星際港口宴請同盟艦隊代表，餐廳開了一張 B 級餐飲憑單（有打艦隊 IBID 但是 B 級）。艦長交給你說「拿去登錄帳冊」。",
-    o0:['✅ 可記入艦隊帳冊','❌ 不可記入帳冊','⚡ 條件式登錄'],
-    o1:['✅ 可扣抵星際貿易稅','❌ 不可扣抵','📡 訊號不穩定'],
-    o2:['🛡️ 安全，無威脅','⚠️ 偵測到風險','🚨 高度警戒！'],
+    id:3,cat:"餐費陷阱",ico:"🍽️",trap:false,
+    title:"老闆請客戶吃飯的二聯式發票",
+    body:"老闆昨天請客戶吃飯，餐廳開了一張二聯式發票（有打公司統編但是二聯式）。老闆把這張發票交給你說「拿去報帳」。",
+    o0:['✅ 可以報帳','❌ 不可報帳','⚡ 條件制'],
+    o1:['✅ 可以扣抵','❌ 不可扣抵','📋 視情況'],
+    o2:['✅ 無稅務風險','⚠️ 有風險','🚨 極高風險'],
     a:[0,1,1],
-    explain:"依星際稅法規定，外交聯盟費用（宴請交際）本來就【不能扣抵】星際貿易稅！B 級憑單也絕對無法扣抵。此外，外交費有上限規定，過多外交費在稽查時容易被重點鎖定。",
-    pen:15,gold:20,col:"外交餐飲B級憑單"
+    explain:"依稅法規定，交際費（請客吃飯）本來就【不能扣抵】營業稅！二聯式發票也絕對無法扣抵。此外，交際費有上限規定，過多交際費在查帳時容易被重點檢視。",
+    pen:15,gold:20,col:"餐飲交際費發票"
   },
   {
-    id:4,cat:"一般手寫收據",ico:"🔧",trap:false,
-    title:"太空水電技師手寫維修收據",
-    body:"太空水電技師修好星艦水循環管線，收了 2,000 星幣工錢後，手寫了一張「維修費收據」，上面沒有「星際交易憑單」字樣，就是一般手寫收據。",
-    o0:['✅ 可記入艦隊帳冊','❌ 不可記入帳冊','⚡ 條件式登錄'],
-    o1:['✅ 可扣抵星際貿易稅','❌ 不可扣抵','📡 訊號不穩定'],
-    o2:['🛡️ 安全，無威脅','⚠️ 視情況有風險','🚨 高度警戒！'],
+    id:4,cat:"免用統一發票收據",ico:"🔧",trap:false,
+    title:"水電師傅維修手寫收據",
+    body:"水電師傅維修公司管線，收了2,000元工錢後，手寫了一張「維修費收據」，上面沒有「統一發票」字樣，就是一般的手寫收據。",
+    o0:['✅ 可以報帳','❌ 不可報帳','⚡ 條件制'],
+    o1:['✅ 可以扣抵','❌ 不可扣抵','📋 視情況'],
+    o2:['✅ 無稅務風險','⚠️ 視情況有風險','🚨 極高風險'],
     a:[0,1,1],
-    explain:"一般收據≠星際交易憑單！手寫收據幾乎不能扣抵星際貿易稅。但可作為費用記錄的佐證。只是無法取得進項稅額扣抵，等於讓艦隊多繳了一筆稅。",
-    pen:15,gold:20,col:"手寫維修收據"
+    explain:"收據≠發票！一般收據幾乎不能扣抵營業稅。但可作為費用報帳的佐證。只是無法取得進項稅額扣抵，等於讓公司多繳了一筆稅。",
+    pen:15,gold:20,col:"一般維修收據"
   },
   {
-    id:5,cat:"任務交通憑證",ico:"🚄",trap:false,
-    title:"艦員任務搭乘超時空列車電子票證",
-    body:"艦員執行任務搭乘超時空列車，使用艦隊企業晶片購票，列車系統自動開立了附有艦隊 IBID 的量子電子票證。艦員回來申請任務差旅費。",
-    o0:['✅ 可記入艦隊帳冊','❌ 不可記入帳冊','⚡ 需補任務報告'],
-    o1:['✅ 可扣抵星際貿易稅','❌ 不可扣抵','📡 訊號不穩定'],
-    o2:['🛡️ 安全，無威脅','⚠️ 偵測到風險','🚨 高度警戒！'],
+    id:5,cat:"交通費憑證",ico:"🚄",trap:false,
+    title:"員工出差搭高鐵電子票證",
+    body:"員工出差搭高鐵，使用公司企業IC卡購票，高鐵系統自動開立了附有公司統編的電子票證（E-invoice）。員工回來申請出差報帳。",
+    o0:['✅ 可以報帳','❌ 不可報帳','⚡ 需補附件'],
+    o1:['✅ 可以扣抵','❌ 不可扣抵','📋 視情況'],
+    o2:['✅ 無稅務風險','⚠️ 有風險','🚨 極高風險'],
     a:[0,0,0],
-    explain:"超時空列車量子電子票證 ＝ 合法可扣抵憑單！前提是有 IBID 或載具歸戶紀錄。有 IBID 的列車票是正式進項憑證，可以扣抵星際貿易稅，是節省艦隊資金的關鍵！",
-    pen:12,gold:25,col:"超時空列車電子票證"
+    explain:"高鐵電子票證＝合法可扣抵憑證！前提是有統編或載具歸戶紀錄。有統編的高鐵票是正式進項憑證，可以扣抵營業稅，出差省錢的關鍵之一！",
+    pen:12,gold:25,col:"高鐵電子票證"
   },
   {
-    id:6,cat:"銀河系外採購",ico:"🌍",trap:false,
-    title:"向銀河系外廠商採購量子軟體 Invoice",
-    body:"艦隊向銀河系外一家量子運算公司購買年度訂閱授權，對方寄來一張跨星系 Invoice，有金額與服務說明，但沒有星際商業稅號，也沒有計算星際貿易稅。",
-    o0:['✅ 可記入艦隊帳冊','❌ 不可記入帳冊','⚡ 條件式登錄'],
-    o1:['✅ 可扣抵星際貿易稅','❌ 不可扣抵','📡 訊號不穩定'],
-    o2:['🛡️ 安全，無威脅','⚠️ 偵測到風險','🚨 高度警戒！'],
+    id:6,cat:"國外發票",ico:"🌍",trap:false,
+    title:"向國外廠商購買軟體 Invoice",
+    body:"公司向美國一家雲端軟體公司購買年度訂閱，對方寄來一張英文 Invoice，上面有金額與服務內容，但沒有台灣統一編號，也沒有台灣營業稅的計算。",
+    o0:['✅ 可以報帳','❌ 不可報帳','⚡ 條件制'],
+    o1:['✅ 可以扣抵','❌ 不可扣抵','📋 視情況'],
+    o2:['✅ 無稅務風險','⚠️ 有風險','🚨 極高風險'],
     a:[0,1,1],
-    explain:"銀河系外 Invoice 未包含「星際貿易稅」，無法扣抵進項稅額。但可記入帳冊！⚠️ 注意：採購境外服務可能涉及【買受艦隊申報繳納 5% 貿易稅】義務，建議諮詢星際財務指揮官確認。",
-    pen:15,gold:20,col:"境外量子服務Invoice"
+    explain:"國外發票並未包含「台灣營業稅」，因此無法扣抵台灣的進項稅額。但可以報帳！⚠️ 注意：購買境外服務可能涉及【買受人申報繳納5%營業稅】義務，建議諮詢會計師確認。",
+    pen:15,gold:20,col:"境外服務Invoice"
   },
   {
-    id:7,cat:"🚨 地雷陷阱任務",ico:"💣",trap:true,
-    title:"艦長命令：去借幾份同盟艦隊的憑單",
-    body:"本月軍費超出預算，艦長下令：「去跟同盟艦隊借幾份交易憑單來申報，下個月再補回去，沒事的。」\n\n你的決策是？",
-    o0:['✅ 艦長命令，先借來用','❌ 這是犯罪，絕對不行！','🤔 問問情況再說'],
-    o1:['✅ 借來的可以扣抵','❌ 完全不合法，不能扣抵','📡 應該還好...'],
-    o2:['🛡️ 沒什麼大問題','⚠️ 有點小風險','🚨 星際刑事責任！'],
+    id:7,cat:"🚨 地雷陷阱題",ico:"💣",trap:true,
+    title:"老闆說：去借幾張發票來報",
+    body:"月底了，老闆說：「這個月費用超出預算，你去跟合作廠商借幾張發票來報一下，下個月再補回去，沒事的。」\n\n你的回應是？",
+    o0:['✅ 沒關係，先借來用','❌ 這是犯罪，不能做！','🤔 問問再說吧'],
+    o1:['✅ 借來的照樣可以扣抵','❌ 完全不合法，不能扣抵','📋 應該還好吧'],
+    o2:['✅ 沒什麼大問題','⚠️ 有點小風險','🚨 刑事責任！超高風險！'],
     a:[1,1,2],
-    explain:"🚨 借用、買賣憑單 ＝ 虛報費用 → 面臨【補稅＋重罰＋刑事責任】！違反稅捐稽徵法第41條，可處5年以下有期徒刑、最高10倍罰鍰。即使艦長命令也不能執行，這是任何財務官都不可觸碰的紅線！",
-    pen:50,gold:0,col:"⚠️ 違規借用憑單",
-    trapMsg:"借用、買賣憑單是刑事犯罪！稽查艦隊已鎖定你的艦隊位置！等待你的是補稅、重罰，甚至坐牢！即使艦長命令也不能執行！"
+    explain:"🚨 買賣、借用發票＝虛報費用→面臨【補稅＋重罰＋刑事責任】！違反稅捐稽徵法第41條，可處5年以下有期徒刑、最高10倍罰鍰。這是絕對不可觸碰的紅線！",
+    pen:50,gold:0,col:"⚠️ 違規借用發票",
+    trapMsg:"借用/買賣發票是刑事犯罪！你的公司帳務正面臨國稅局最高等級的查帳風險！這條路走下去，等待你的是補稅、重罰，甚至坐牢！"
   },
   {
-    id:8,cat:"個人名義憑單",ico:"👤",trap:false,
-    title:"艦員用個人名義開立的憑單",
-    body:"艦員執行任務途中購買艦隊耗材，但憑單上只打了艦員的個人姓名，沒有打艦隊 IBID。艦員拿回來要申請核銷。",
-    o0:['✅ 直接登錄，沒問題','⚡ 需提交任務說明文件','❌ 完全不能記入'],
-    o1:['✅ 可扣抵星際貿易稅','❌ 不可扣抵','📡 訊號不穩定'],
-    o2:['🛡️ 安全，無威脅','⚠️ 偵測到風險','🚨 高度警戒！'],
+    id:8,cat:"個人發票報公司",ico:"👤",trap:false,
+    title:"員工用個人姓名開的發票",
+    body:"員工出差途中買了公司需要的耗材，發票上只打了員工個人姓名，沒有打公司統編。員工拿回來要申請報帳。",
+    o0:['✅ 直接報帳沒問題','⚡ 需提供說明才能報','❌ 完全不能報'],
+    o1:['✅ 可以扣抵','❌ 不可扣抵','📋 視情況'],
+    o2:['✅ 無稅務風險','⚠️ 有風險','🚨 極高風險'],
     a:[1,1,1],
-    explain:"非艦隊 IBID 的憑單→絕對不得扣抵星際貿易稅。記入帳冊部分需附任務申請文件、採購說明等，證明費用確實與艦隊任務相關，才能條件式認列。核銷流程必須完整！",
-    pen:15,gold:20,col:"個人名義憑單"
+    explain:"非公司統編的發票→絕對不得扣抵營業稅。報帳部分需附出差申請單、採購說明等，證明費用確實與公司業務相關，才能條件制認列。核銷流程要完整！",
+    pen:15,gold:20,col:"個人姓名發票"
   },
   {
-    id:9,cat:"量子電子憑單",ico:"📱",trap:false,
-    title:"量子載具電子憑單未歸戶艦隊帳號",
-    body:"艦員用個人量子裝置（非艦隊帳號）存了一份電子憑單，費用確實是為艦隊採購，但憑單沒有歸戶到艦隊系統，只能在個人裝置 APP 上查看 QR 碼。",
-    o0:['✅ 可記入艦隊帳冊','❌ 不可記入帳冊','⚡ 條件式登錄'],
-    o1:['✅ 可扣抵星際貿易稅','❌ 不可扣抵','📡 需確認歸戶狀態'],
-    o2:['🛡️ 安全，無威脅','⚠️ 偵測到風險','🚨 高度警戒！'],
+    id:9,cat:"電子發票載具",ico:"📱",trap:false,
+    title:"載具取得電子發票但未歸戶",
+    body:"員工用個人手機載具（非公司帳號）存了一張電子發票，費用確實是為公司購買的，但發票沒有歸戶到公司，只能在手機APP上查看QR code。",
+    o0:['✅ 可以報帳','❌ 不可報帳','⚡ 條件制'],
+    o1:['✅ 可以扣抵','❌ 不可扣抵','📋 視情況而定'],
+    o2:['✅ 無稅務風險','⚠️ 有風險','🚨 極高風險'],
     a:[0,2,1],
-    explain:"量子載具未歸戶 ＝ 容易遺失憑證，後續難以舉證！建議將艦隊 IBID 的電子憑單歸戶到艦隊主帳號，或使用艦隊 IBID 開立，才能確保進項憑證完整性，方便申報扣抵。",
-    pen:15,gold:20,col:"未歸戶量子電子憑單"
+    explain:"載具沒歸戶＝容易遺失憑證，後續難以舉證！建議將公司統編的電子發票歸戶到公司帳號，或使用公司統編開立，才能確保進項憑證的完整性，方便申報扣抵。",
+    pen:15,gold:20,col:"未歸戶電子發票"
   },
   {
-    id:10,cat:"星際海關報單",ico:"🚢",trap:false,
-    title:"進口星際原料取得海關報單",
-    body:"艦隊從邊境星系進口一批量子原料，報關後星際海關核發了「進口報單」，上面附有「海關代徵星際貿易稅繳納證明」，顯示已代繳 5% 貿易稅。",
-    o0:['✅ 可記入艦隊帳冊','❌ 不可記入帳冊','⚡ 條件式登錄'],
-    o1:['✅ 可扣抵星際貿易稅','❌ 不可扣抵','📡 訊號不穩定'],
-    o2:['🛡️ 安全，無威脅','⚠️ 偵測到風險','🚨 高度警戒！'],
+    id:10,cat:"進口報單",ico:"🚢",trap:false,
+    title:"公司進口商品取得海關進口報單",
+    body:"公司向海外廠商進口一批原物料，報關後海關核發了「進口報單」，上面附有「海關代徵營業稅繳納證明」，顯示已代繳5%營業稅。",
+    o0:['✅ 可以報帳','❌ 不可報帳','⚡ 條件制'],
+    o1:['✅ 可以扣抵','❌ 不可扣抵','📋 視情況'],
+    o2:['✅ 無稅務風險','⚠️ 有風險','🚨 極高風險'],
     a:[0,0,0],
-    explain:"星際海關進口報單（海關代徵貿易稅繳納證）＝ 正式且合法的扣抵憑證！這是星際稅法明確認可的進項憑證，可安心扣抵已代繳的 5% 星際貿易稅。記得妥善保存原件！",
-    pen:12,gold:25,col:"星際海關進口報單"
+    explain:"進口報單（海關代徵營業稅繳納證）＝正式且合法的扣抵憑證！這是台灣稅法明確認可的進項憑證，可安心扣抵已代繳的5%營業稅。記得妥善保存原件！",
+    pen:12,gold:25,col:"海關進口報單"
   },
   {
-    id:11,cat:"憑單數據錯誤",ico:"❌",trap:false,
-    title:"A 級憑單金額數據寫錯了",
-    body:"廠商開了一份 A 級憑單，金額應該是 10,000 星幣，但憑單上卻誤寫為 8,000 星幣。廠商說：「差不多啦，直接用就好了，差額再補給你。」",
-    o0:['✅ 金額差不多，直接用','❌ 數據錯誤，應請廠商重新掃描','⚡ 依錯誤金額記入'],
-    o1:['✅ 8,000 的部分可扣抵','❌ 數據不正確，不可扣抵','📡 扣到 8,000 就好'],
-    o2:['🛡️ 安全，無威脅','⚠️ 偵測到風險','🚨 高度警戒！'],
+    id:11,cat:"發票金額錯誤",ico:"❌",trap:false,
+    title:"三聯式發票金額寫錯了",
+    body:"廠商開了一張三聯式發票，金額應該是10,000元，但發票上卻誤寫為8,000元。廠商說：「差不多啦，直接用就好了，差額再補給你。」",
+    o0:['✅ 差不多就直接用','❌ 不建議，應請廠商重開','⚡ 打折的金額報帳'],
+    o1:['✅ 8,000元的部分可扣抵','❌ 不可扣抵（憑證有誤）','📋 扣到8,000就好'],
+    o2:['✅ 無稅務風險','⚠️ 有風險','🚨 極高風險'],
     a:[1,1,1],
-    explain:"金額錯誤的憑單是「不正確憑證」，不可直接使用！應立即請廠商作廢重新開立正確金額的憑單。使用錯誤數據的憑單不僅帳務不符，稽查艦隊掃描到時可能被認定為蓄意虛開。",
-    pen:15,gold:20,col:"金額錯誤憑單"
+    explain:"金額錯誤＝憑證不正確，不可直接使用！應立即請廠商作廢重開正確金額的發票。使用錯誤金額的發票不僅帳務不符，查帳時可能被認定為蓄意虛開憑證。",
+    pen:15,gold:20,col:"金額錯誤發票"
   },
   {
-    id:12,cat:"憑單時間軸不符",ico:"📅",trap:false,
-    title:"憑單時間戳記 3 月，費用實際發生在 5 月",
-    body:"廠商說忘記開憑單，現在補開了一份時間戳記標示 3 月份的憑單，但費用實際上是在 5 月份發生的。廠商說這樣最方便。",
-    o0:['✅ 沒差，直接記入當期','⚡ 可記入但需調整時間軸','❌ 不可使用此憑單'],
-    o1:['✅ 可以當期扣抵','❌ 跨時間軸無法扣抵','📡 需確認申報週期'],
-    o2:['🛡️ 安全，無威脅','⚠️ 跨期風險偵測','🚨 高度警戒！'],
+    id:12,cat:"發票日期不符",ico:"📅",trap:false,
+    title:"發票日期3月，費用實際發生在5月",
+    body:"廠商說忘記開發票，現在補開了一張日期標示3月份的發票，但費用實際上是在5月份發生的。廠商說這樣最方便。",
+    o0:['✅ 直接報帳沒差','⚡ 可報帳但帳務期間需調整','❌ 絕對不能用'],
+    o1:['✅ 可以當期扣抵','❌ 跨期無法扣抵','📋 視申報期間決定'],
+    o2:['✅ 沒什麼大問題','⚠️ 跨期申報有風險','🚨 極高風險'],
     a:[1,2,1],
-    explain:"憑單時間戳記是「扣抵時點」的關鍵依據！3 月憑單理應在 3 月那期申報扣抵，5 月才取得會有跨期問題。建議請廠商作廢後重開正確日期的憑單，或由星際財務指揮官協助處理跨期調整。",
-    pen:15,gold:20,col:"跨期時間戳記憑單"
+    explain:"發票日期是「扣抵時點」的關鍵依據！3月發票理應在3月那期申報扣抵，5月才取得會有跨期問題。建議請廠商作廢後重開正確日期的發票，或由專業會計師協助處理跨期調整。",
+    pen:15,gold:20,col:"跨期日期發票"
   },
   {
-    id:13,cat:"任務交通收據",ico:"🚕",trap:false,
-    title:"艦員任務搭乘計程飛船手寫收據",
-    body:"艦員執行任務搭乘計程飛船，駕駛員手開了一張「計程飛船收據」（非星際交易憑單），金額 350 星幣。艦員要申請任務差旅費核銷。",
-    o0:['✅ 可記入艦隊帳冊','❌ 不可記入帳冊','⚡ 需附任務申請單'],
-    o1:['✅ 可扣抵星際貿易稅','❌ 不可扣抵','📡 訊號不穩定'],
-    o2:['🛡️ 安全，無威脅','⚠️ 偵測到風險','🚨 高度警戒！'],
+    id:13,cat:"交通費憑證",ico:"🚕",trap:false,
+    title:"員工出差搭計程車手開收據",
+    body:"員工出差搭計程車，司機手開了一張「計程車收據」（非統一發票），金額350元。員工要拿來向公司申請交通費報帳。",
+    o0:['✅ 可以報帳','❌ 不可報帳','⚡ 需出差申請單'],
+    o1:['✅ 可以扣抵','❌ 不可扣抵','📋 視情況'],
+    o2:['✅ 無稅務風險','⚠️ 有風險','🚨 極高風險'],
     a:[0,1,1],
-    explain:"計程飛船收據屬於一般收據，通常不能扣抵星際貿易稅。可以記入帳冊，但需附任務申請單佐證。💡 建議改用星際叫車 APP，可自動開立電子憑單並附上 IBID，方便扣抵！",
-    pen:12,gold:20,col:"計程飛船手寫收據"
+    explain:"計程車收據屬於一般收據，通常不能扣抵營業稅。可以報帳，但需附出差申請單佐證。💡 建議改用台灣大車隊或LINE TAXI等叫車APP，可開立電子發票，方便扣抵！",
+    pen:12,gold:20,col:"計程車手寫收據"
   },
   {
-    id:14,cat:"🚨 地雷陷阱任務",ico:"💣",trap:true,
-    title:"IBID 打錯成隔壁艦隊的識別碼",
-    body:"廠商系統故障，把憑單上的 IBID 打成隔壁 A 艦隊的，但你們是 B 艦隊。廠商說：「沒關係啦，反正都是艦隊，你們就直接用吧！A 艦隊也說不介意。」\n\n你的決定？",
-    o0:['✅ 對方說沒關係，直接用','❌ IBID 錯誤，絕對不能這樣！','🤷 先用了再說'],
-    o1:['✅ 幫 B 艦隊扣抵沒問題','❌ IBID 不符，完全不能扣抵','📡 跟 A 艦隊說聲就好'],
-    o2:['🛡️ 只是小失誤','⚠️ 有點風險','🚨 高度法律警戒！'],
+    id:14,cat:"🚨 地雷陷阱題",ico:"💣",trap:true,
+    title:"發票統編開錯，打成別家公司的",
+    body:"廠商手誤，把發票上的統編打成隔壁A公司的，但你們是B公司。廠商說：「沒關係啦，反正都是公司，你們就直接用吧！A公司也說不介意。」\n\n你的決定？",
+    o0:['✅ 對方說沒關係，直接用','❌ 統編錯誤，絕對不能這樣！','🤷 先用了再說'],
+    o1:['✅ 幫B公司扣抵沒問題','❌ 統編不符，完全不能扣抵','📋 跟A公司說聲就好'],
+    o2:['✅ 只是小失誤','⚠️ 有點風險','🚨 高度法律風險！'],
     a:[1,1,2],
-    explain:"IBID 錯誤 ＝ 無效憑單，絕不可張冠李戴！使用他人 IBID 的憑單是稅務違規，可能構成欺詐。應立即要求廠商作廢並重新開立，打上 B 艦隊正確的星際商業識別碼才能使用。",
-    pen:40,gold:0,col:"⚠️ IBID錯誤憑單",
-    trapMsg:"嚴重違規！使用錯誤 IBID 的憑單，可能構成稅務違規甚至欺詐罪！稽查艦隊已對你的位置發出高度警戒！立即要求廠商重開正確憑單！"
+    explain:"統編錯誤＝無效憑證，絕不可張冠李戴！使用他人統編的發票是稅務違規，可能構成詐欺。應立即要求廠商作廢重開，打上B公司正確的統一編號才能使用。",
+    pen:40,gold:0,col:"⚠️ 統編錯誤發票",
+    trapMsg:"嚴重違規！使用錯誤統編的發票，可能構成稅務違規甚至詐欺罪！你的公司帳務正面臨重大法律風險！立即要求廠商重開正確發票！"
   },
   {
-    id:15,cat:"艦員代墊核銷",ico:"💳",trap:false,
-    title:"艦員自行墊付，憑單已打艦隊 IBID",
-    body:"艦員自行先墊付星幣，在補給站採購艦隊需要的耗材，並已請店家開立 A 級憑單，上面打的是艦隊 IBID。艦員持憑單向艦隊申請核銷。",
-    o0:['✅ 有IBID就可記入帳冊','❌ 要艦隊付的才能記入','⚡ 需補核銷表單'],
-    o1:['✅ 有 IBID 可以扣抵','❌ 艦員墊付的不算','📡 訊號不穩定'],
-    o2:['🛡️ 安全，無威脅','⚠️ 偵測到風險','🚨 高度警戒！'],
+    id:15,cat:"員工代墊報帳",ico:"💳",trap:false,
+    title:"員工墊錢買文具，發票有打公司統編",
+    body:"員工自己先墊錢，在文具店購買公司需要的耗材，並已請店家開立三聯式發票，上面打的是公司統編。員工持發票向公司申請核銷。",
+    o0:['✅ 有統編就可以報帳','❌ 要公司付的錢才能報','⚡ 需補核銷表單'],
+    o1:['✅ 有統編可以扣抵','❌ 員工墊的不算','📋 視情況'],
+    o2:['✅ 無稅務風險','⚠️ 有風險','🚨 極高風險'],
     a:[0,0,0],
-    explain:"核心關鍵是「憑單上有無艦隊 IBID」，而不是誰先付款！有打艦隊 IBID 的 A 級憑單就是合格憑證，可記入帳冊也可扣抵。記得附上核銷申請單，艦隊再將星幣退還艦員即可！",
-    pen:12,gold:25,col:"艦員代墊A級憑單"
+    explain:"核心關鍵是「發票上有無公司統編」，而不是誰先付款！有打公司統編的三聯式發票就是合格憑證，可以報帳也可以扣抵。記得附上核銷申請單，公司再將錢退還員工即可！",
+    pen:12,gold:25,col:"員工代墊三聯式發票"
   },
   {
-    id:16,cat:"量子電子憑單截圖",ico:"📸",trap:false,
-    title:"廠商只提供量子電子憑單截圖",
-    body:"廠商說：「我懶得操作，你截圖就好！」只給你一張量子裝置截圖，顯示電子憑單的資訊，但沒有提供正式的量子憑單 QXL 檔案或紙本證明聯。",
-    o0:['✅ 截圖就夠，直接記入','⚡ 訊號不穩，視情況','❌ 截圖無效，不能用'],
-    o1:['✅ 截圖可以扣抵','❌ 截圖不能扣抵','📡 訊號不穩定'],
-    o2:['🛡️ 安全，無威脅','⚠️ 偵測到風險','🚨 高度警戒！'],
+    id:16,cat:"電子憑證問題",ico:"📸",trap:false,
+    title:"廠商只提供電子發票截圖",
+    body:"廠商說：「我懶得印，你截圖就好！」只給你一張手機截圖，顯示電子發票的資訊，但沒有提供正式的電子發票XML檔案或紙本證明聯。",
+    o0:['✅ 截圖就夠，可以報帳','⚡ 視情況，但不建議','❌ 不能用截圖'],
+    o1:['✅ 截圖可以扣抵','❌ 截圖不能扣抵','📋 視情況'],
+    o2:['✅ 無稅務風險','⚠️ 有風險','🚨 極高風險'],
     a:[1,1,1],
-    explain:"截圖≠正式憑證！必須取得正規的量子電子憑單 QXL 檔案或紙本「證明聯」。截圖無法核實真偽，稽查艦隊掃描時不被承認，有補稅風險。請要求廠商提供正式憑單檔案！",
-    pen:15,gold:20,col:"電子憑單截圖"
+    explain:"截圖≠正式憑證！必須取得正規的電子發票XML檔案或紙本「證明聯」。截圖無法核實真偽，查帳時不被承認，有補稅風險。請要求廠商提供正式憑證檔案！",
+    pen:15,gold:20,col:"電子發票截圖"
   },
   {
-    id:17,cat:"🚨 地雷陷阱任務",ico:"💣",trap:true,
-    title:"星際黑市：購買「可扣抵的假憑單」",
-    body:"神秘接觸者傳訊：「我有管道，可以幫你搞幾份 A 級憑單，金額隨便填，便宜賣，幫艦隊省一大筆貿易稅。」\n\n你的回應是？",
-    o0:['✅ 聽起來很划算！','❌ 黑市假憑單，這是犯罪！','🤔 先問問規格'],
-    o1:['✅ 弄來就能扣抵稅了！','❌ 假憑單絕對違法！','📡 不確定...'],
-    o2:['🛡️ 只要不被發現','⚠️ 有一定風險','🚨 星際刑事重罪！'],
+    id:17,cat:"🚨 地雷陷阱題",ico:"💣",trap:true,
+    title:"購買來路不明但可扣抵的假發票",
+    body:"朋友神秘地說：「我認識一個人，可以幫你弄幾張三聯式發票，金額隨便開，很便宜，可以幫公司省一大筆稅。」\n\n你會怎麼做？",
+    o0:['✅ 聽起來很划算！','❌ 這是買賣假發票，犯罪！','🤔 先看看價格'],
+    o1:['✅ 弄來就能扣抵稅了！','❌ 假發票絕對不行！','📋 可能可以用...'],
+    o2:['✅ 只要不被抓就好','⚠️ 有一定的風險','🚨 刑事重罪！極高風險！'],
     a:[1,1,2],
-    explain:"🚨 購買假憑單 ＝ 刑事犯罪＋行政重罰！違反稅捐稽徵法，最重可處5年有期徒刑，並需補繳稅款及最高10倍罰鍰。這是任何財務官都不可觸碰的底線，沒有任何商量空間！",
-    pen:50,gold:0,col:"⚠️ 黑市假憑單（刑事重罪）",
-    trapMsg:"極度危險！購買假憑單是刑事犯罪行為！星際稅務總署 ISTA 已對你的艦隊發出最高警戒！最重可判5年有期徒刑。立即切斷聯繫，必要時呼叫星際財務指揮官！"
+    explain:"🚨 買賣假發票＝刑事犯罪＋行政重罰！違反稅捐稽徵法，最重可處5年有期徒刑，並需補繳稅款及最高10倍罰鍰。這是會計業絕對不可觸碰的底線，沒有任何商量的空間！",
+    pen:50,gold:0,col:"⚠️ 假發票（刑事重罪）",
+    trapMsg:"極度危險！購買假發票是刑事犯罪行為！你的公司帳務面臨最高等級稅務風險！最重可判5年有期徒刑。立即停止，必要時尋求專業法律與會計師諮詢！"
   },
   {
-    id:18,cat:"小額補給消費",ico:"☕",trap:false,
-    title:"星際補給站小額消費，不提供憑單",
-    body:"艦員在星際補給站買了一杯 50 能量幣的飲料（公務用途），但補給站說金額太小不開憑單，頂多給一張手寫收據，或什麼都沒有。",
-    o0:['✅ 小金額直接記入帳冊','⚡ 需附任務佐證文件','❌ 無憑單完全不行'],
-    o1:['✅ 可扣抵星際貿易稅','❌ 不可扣抵','📡 訊號不穩定'],
-    o2:['🛡️ 安全，無威脅','⚠️ 偵測到風險','🚨 高度警戒！'],
+    id:18,cat:"小額消費憑證",ico:"☕",trap:false,
+    title:"小店50元消費，店家不開發票",
+    body:"員工買了一杯50元飲料（公務報帳），但小攤販說金額太小不開發票，頂多給一張手寫收據，或者什麼都沒有。",
+    o0:['✅ 小金額直接報','⚡ 視情況，需附佐證','❌ 沒發票完全不行'],
+    o1:['✅ 可以扣抵','❌ 不可扣抵','📋 視情況'],
+    o2:['✅ 無稅務風險','⚠️ 有一定風險','🚨 極高風險'],
     a:[1,1,1],
-    explain:"沒有合規憑單 ＝ 風險來源！小額費用可記入帳冊，但需附任務申請單佐證。無法扣抵星際貿易稅。頻繁出現無憑單支出會引起稽查艦隊注意，建議建立零用金制度管理小額支出！",
+    explain:"沒有合規憑證＝風險來源！小額費用可以報帳，但需附上費用申請單佐證。無法扣抵營業稅。頻繁出現無憑證支出會引起查帳疑慮，建議建立零用金（petty cash）制度管理小額支出！",
     pen:12,gold:20,col:"小額無憑單消費"
   },
   {
-    id:19,cat:"基地租用費",ico:"🏢",trap:false,
-    title:"向個人租用星際基地，對方只開收據",
-    body:"艦隊向個人（非企業）星際基地主租用前進基地，每月租金 30,000 星幣。基地主說他是一般個人，只能開收據，不能開 A 級星際交易憑單。",
-    o0:['✅ 收據可記入帳冊','❌ 一定要有憑單才行','⚡ 條件式記入'],
-    o1:['✅ 可扣抵星際貿易稅','❌ 不可扣抵','📡 訊號不穩定'],
-    o2:['🛡️ 安全，無威脅','⚠️ 偵測到風險','🚨 高度警戒！'],
+    id:19,cat:"租金憑證",ico:"🏢",trap:false,
+    title:"向個人房東租辦公室，只收到收據",
+    body:"公司向個人（非公司行號）房東承租辦公室，每月租金30,000元。房東說他是一般個人，只能開一張收據，不能開統一發票。",
+    o0:['✅ 收據可以報帳','❌ 一定要有發票','⚡ 條件制報帳'],
+    o1:['✅ 可以扣抵','❌ 不可扣抵','📋 視情況'],
+    o2:['✅ 無稅務風險','⚠️ 有風險','🚨 極高風險'],
     a:[0,1,1],
-    explain:"支付租金給個人，除取得收據外，務必注意兩個義務：① 需對基地主【代扣繳 10% 租金扣繳稅款】並申報；② 月付超過 20,000 星幣還需【申報二代健保補充保費】。這兩點很多艦隊忽略，被稽查到需補稅加罰！",
-    pen:15,gold:20,col:"個人基地租用收據"
+    explain:"支付租金給個人，除取得收據外，務必注意：① 需對房東【代扣繳10%租金扣繳稅款】並申報；② 月付超過20,000元還需【申報二代健保補充保費】。這兩點很多公司忽略，被查到需補稅加罰！",
+    pen:15,gold:20,col:"個人房東租金收據"
   },
   {
-    id:20,cat:"星際信用晶片",ico:"💳",trap:false,
-    title:"艦隊信用晶片簽單（未附星際交易憑單）",
-    body:"艦員使用艦隊信用晶片消費，只保留了星際信用晶片「簽帳單」，卻忘記另外向店家索取 A 級星際交易憑單。拿著簽帳單要申請核銷。",
-    o0:['✅ 有晶片簽帳單就可記入','❌ 簽帳單不夠，還需A級憑單','⚡ 補說明可記入'],
-    o1:['✅ 簽帳單可扣抵','❌ 簽帳單不能扣抵','📡 視情況決定'],
-    o2:['🛡️ 安全，無威脅','⚠️ 偵測到風險','🚨 高度警戒！'],
+    id:20,cat:"信用卡付款",ico:"💳",trap:false,
+    title:"公司信用卡刷卡簽單（沒有附發票）",
+    body:"員工用公司信用卡消費，只保留了信用卡刷卡「簽帳單」，卻忘記另外向店家索取統一發票。拿著簽帳單回來說要報帳。",
+    o0:['✅ 有簽帳單就可以報帳','❌ 簽帳單不夠，還要發票','⚡ 補說明可以報'],
+    o1:['✅ 簽帳單可以扣抵','❌ 簽帳單不能扣抵','📋 視金額決定'],
+    o2:['✅ 無稅務風險','⚠️ 有風險','🚨 極高風險'],
     a:[1,1,1],
-    explain:"星際信用晶片簽帳單「只是付款方式的證明」，絕對不能作為入帳憑證！真正的憑證是 A 級星際交易憑單。刷晶片消費時，一定要同時向店家索取 A 級憑單，簽帳單與憑單必須一起保存！",
-    pen:15,gold:20,col:"信用晶片刷卡簽帳單"
+    explain:"信用卡簽帳單「只是付款方式的證明」，絕對不能作為入帳憑證！真正的憑證是統一發票。刷卡消費時，一定要同時向店家索取統一發票，簽帳單與發票要一起保存！",
+    pen:15,gold:20,col:"信用卡刷卡簽單"
   }
 ];
 
-// ═══════════════════════════════════════
+// ════════════════════════════════════════
 // GAME STATE
-// ═══════════════════════════════════════
+// ════════════════════════════════════════
 const CHARS={
-  boss:{emoji:'🛸',name:'星艦艦長',mult:1.0},
-  rookie:{emoji:'🤖',name:'菜鳥財務官',mult:1.2},
-  entrepreneur:{emoji:'⚡',name:'星際創業者',mult:1.5}
+  boss:{emoji:'👔',name:'老闆',mult:1.0},
+  rookie:{emoji:'📚',name:'新手會計',mult:1.2},
+  entrepreneur:{emoji:'🚀',name:'創業者',mult:1.5}
 };
 let G={char:null,hp:100,gold:0,qi:0,score:0,okCount:0,
   sel:[null,null,null],answered:false,col:[],
@@ -755,7 +753,7 @@ function selectChar(key){
   const c=CHARS[key];
   document.getElementById('confirm-area').style.display='block';
   document.getElementById('confirm-info').innerHTML=
-    `已選擇：${c.emoji} <strong>${c.name}</strong>｜星幣倍率 ${c.mult}×`;
+    `已選擇：${c.emoji} <strong>${c.name}</strong>｜金幣倍率 ${c.mult}×`;
 }
 
 function startGame(){
@@ -777,7 +775,7 @@ function loadQ(i){
   document.getElementById('q-cat').textContent=q.cat;
   document.getElementById('q-ico').textContent=q.ico;
   const bdg=document.getElementById('q-bdg');
-  bdg.textContent='任務 '+String(q.id).padStart(2,'0');
+  bdg.textContent='第 '+q.id+' 題';
   bdg.className='q-badge'+(q.trap?' trap':'');
   document.getElementById('q-title').textContent=q.title;
   const bodyEl=document.getElementById('q-body');
@@ -790,7 +788,7 @@ function loadQ(i){
   buildOpts('opts-2',q.o2,2);
   const btn=document.getElementById('btn-confirm');
   btn.disabled=true;
-  btn.textContent='▸ 提交決策（請先完成上方 3 個選項）';
+  btn.textContent='📝 確認作答（請先完成上方 3 個選擇）';
   document.getElementById('fb-panel').classList.remove('show');
   document.getElementById('q-panel').style.display='block';
   document.getElementById('q-num').textContent=q.id;
@@ -820,7 +818,7 @@ function pickOpt(qi,idx,cid){
   if(G.sel.every(x=>x!==null)){
     const btn=document.getElementById('btn-confirm');
     btn.disabled=false;
-    btn.textContent='▸ 提交決策！';
+    btn.textContent='📝 確認作答！';
   }
 }
 
@@ -841,39 +839,33 @@ function checkAnswers(){
     return ok;
   });
   let hpD=0,goldD=0;
-  if(rights===3){
-    goldD=Math.round(q.gold*G.mult);
-    G.score+=15;G.okCount++;
-  }else{
-    hpD=-Math.round(q.pen*(3-rights)/3);
-    goldD=Math.round(q.gold*rights/3*G.mult);
-    G.score+=rights*5;
-  }
+  if(rights===3){goldD=Math.round(q.gold*G.mult);G.score+=15;G.okCount++;}
+  else{hpD=-Math.round(q.pen*(3-rights)/3);goldD=Math.round(q.gold*rights/3*G.mult);G.score+=rights*5;}
   G.col.push(q.col);
   G.hp=Math.max(0,G.hp+hpD);
   G.gold+=goldD;
-  if(hpD<0)floatPop('float-hp',hpD+' SP','#ff2d55');
-  if(goldD>0)floatPop('float-gold','+'+goldD+' 💎','#ffd700');
+  if(hpD<0)floatPop('float-hp',hpD+' HP','#ff2d55');
+  if(goldD>0)floatPop('float-gold','+'+goldD+' 🪙','#ffd700');
   updateHUD();
   renderFeedback(results,rights,q,hpD,goldD);
   document.getElementById('q-panel').style.display='none';
   document.getElementById('fb-panel').classList.add('show');
   if(q.trap&&rights<3){G.warnPending=true;G.warnQ=q;}
   const nxt=document.getElementById('btn-next');
-  if(G.hp<=0){nxt.textContent='查看任務結算 ⚠️';nxt.className='btn-next danger';}
-  else{nxt.textContent=G.qi===QS.length-1?'查看任務結算 🌟':'繼續任務 ▶';nxt.className='btn-next';}
+  if(G.hp<=0){nxt.textContent='查看最終結果 ⚠️';nxt.className='btn-next danger';}
+  else{nxt.textContent=G.qi===QS.length-1?'查看最終結果 🏆':'下一題 ▶';nxt.className='btn-next';}
 }
 
 function renderFeedback(results,rights,q,hpD,goldD){
   const h=document.getElementById('fb-header');
   const gold=Math.round(q.gold*G.mult);
-  if(rights===3){h.textContent='🎉 全部正確！+'+gold+' 星幣！';h.style.color='var(--green)';}
-  else if(rights>0){h.textContent='⚡ 部分正確（'+rights+'/3）'+(hpD<0?' SP '+hpD:'');h.style.color='var(--orange)';}
-  else{h.textContent=q.trap?'🚨 踩到地雷！SP '+hpD:'❌ 決策錯誤！SP '+hpD;h.style.color='var(--red)';}
-  const lbls=['帳冊登錄判斷','貿易稅扣抵判斷','稽查風險判斷'];
+  if(rights===3){h.textContent='🎉 全對！+'+gold+' 金幣！';h.style.color='var(--green)';}
+  else if(rights>0){h.textContent='⚡ 部分正確（'+rights+'/3）'+(hpD<0?' HP '+hpD:'');h.style.color='var(--orange)';}
+  else{h.textContent=q.trap?'🚨 踩到地雷！HP '+hpD:'❌ 答錯了！HP '+hpD;h.style.color='var(--red)';}
+  const lbls=['報帳判斷','扣抵判斷','風險判斷'];
   document.getElementById('fb-badges').innerHTML=
     results.map((r,i)=>`<div class="fb-badge ${r?'ok':'no'}">${r?'✅':'❌'} ${lbls[i]}</div>`).join('');
-  document.getElementById('explain-box').innerHTML='📡 '+q.explain;
+  document.getElementById('explain-box').innerHTML='💡 '+q.explain;
 }
 
 function floatPop(cls,txt,color){
@@ -905,7 +897,7 @@ function nextQuestion(){
 
 function showWarning(q){
   document.getElementById('warn-msg').textContent=q.trapMsg;
-  document.getElementById('warn-hp-txt').textContent='SP -'+q.pen+' 🛡️💥';
+  document.getElementById('warn-hp-txt').textContent='HP -'+q.pen+' 🩸';
   document.getElementById('warn-overlay').classList.add('show');
 }
 
@@ -922,34 +914,37 @@ function showResults(){
   document.getElementById('r-score').textContent=pct+'%';
   document.getElementById('r-hp').textContent=G.hp;
   document.getElementById('r-gold').textContent=G.gold;
-  let rank,title,stars,msg,warnHTML,ctaHTML;
+  let warnHTML='',ctaHTML='';
   if(G.hp<=0){
-    rank='💀';title='護盾歸零！艦隊帳務崩潰！';stars='☆☆☆☆☆';
-    msg='⚠️ 你的艦隊帳務漏洞百出，隨時面臨星際稽查艦隊的全面掃描！現在還有機會補救，立即呼叫星際財務支援！';
-    warnHTML=`<div class="result-warn">🚨 星際稅務總署 ISTA 警報：艦隊財務風險評估：<strong>極高</strong>！<br>稽查艦隊已鎖定你的位置！立即採取行動！</div>`;
-    ctaHTML=`<button class="cta-btn cta-red" onclick="openCTA('danger')">🚨 緊急呼叫！立即連線星際財務指揮官！</button><div class="cta-note">⚡ 你的帳務情況需要立即處理，請勿拖延</div>`;
+    document.getElementById('r-rank').textContent='💀';
+    document.getElementById('r-title').textContent='帳務危機！緊急需要幫助！';
+    document.getElementById('r-stars').textContent='☆☆☆☆☆';
+    document.getElementById('r-msg').textContent='⚠️ 你的公司帳務漏洞百出！中途被國稅局查帳的風險極高！現在還有機會補救，但你需要專業的幫助！';
+    warnHTML=`<div class="result-warn">🚨 系統警告：你的公司帳務風險評估：<strong>極高</strong>！<br>隨時可能被國稅局盯上！立即採取行動！</div>`;
+    ctaHTML=`<button class="cta-btn cta-red" onclick="openCTA('danger')">🚨 立即預約專業會計師緊急諮詢！</button><div class="cta-note">⚡ 您的帳務情況需要立即處理，請勿拖延</div>`;
   }else if(pct>=90){
-    rank='🌟';title='星際財務精英！艦隊守護者！';stars='★★★★★';
-    msg='任務評分頂尖！你對星際稅務法規有深入理解，是艦隊財務最可靠的守護者！繼續保持！';
-    warnHTML='';
-    ctaHTML=`<button class="cta-btn cta-cyan" onclick="openCTA('gold')">🏆 解鎖精英獎勵！預約15分鐘免費財務健檢</button><div class="cta-note">讓星際財務指揮官為你的艦隊進行最後一道防線健檢</div>`;
+    document.getElementById('r-rank').textContent='🥇';
+    document.getElementById('r-title').textContent='優秀！你是財務守護神！';
+    document.getElementById('r-stars').textContent='★★★★★';
+    document.getElementById('r-msg').textContent='表現優異！你對台灣稅務法規有深入理解，是公司財務安全的最佳守護者！繼續保持！';
+    ctaHTML=`<button class="cta-btn cta-cyan" onclick="openCTA('gold')">🏆 解鎖專屬獎勵！預約15分鐘免費諮詢</button><div class="cta-note">讓專業會計師為您的公司財務進行最後一道防線健檢</div>`;
   }else if(pct>=70){
-    rank='⭐';title='任務完成，但仍有未清除的地雷';stars='★★★☆☆';
-    msg='表現不錯！但任務分析顯示你的帳務中還隱藏了不少稅務地雷，建議進一步強化防禦。';
+    document.getElementById('r-rank').textContent='🥈';
+    document.getElementById('r-title').textContent='表現尚可，但隱藏了不少地雷';
+    document.getElementById('r-stars').textContent='★★★☆☆';
+    document.getElementById('r-msg').textContent='表現不錯！但測試結果顯示您的帳務中隱藏了不少稅務地雷，建議進一步優化，把漏洞補起來。';
     const miss=QS.length-G.okCount;
-    warnHTML=`<div class="result-warn">⚠️ 系統掃描：偵測到 ${miss} 個潛在稅務漏洞，建議進行艦隊財務健診</div>`;
-    ctaHTML=`<button class="cta-btn cta-green" onclick="openCTA('mid')">📊 下載艦隊財務修復方案 + 預約指揮官諮詢</button><div class="cta-note">幫你把所有稅務漏洞一次補齊</div>`;
+    warnHTML=`<div class="result-warn">⚠️ 系統分析：發現 ${miss} 個潛在稅務漏洞，建議進行帳務健診</div>`;
+    ctaHTML=`<button class="cta-btn cta-green" onclick="openCTA('mid')">📊 下載改善建議報告 + 預約會計師諮詢</button><div class="cta-note">幫您把所有稅務漏洞一次補齊</div>`;
   }else{
-    rank='⚠️';title='高風險警報！艦隊財務危機！';stars='★☆☆☆☆';
-    msg='艦隊財務風險評估：高！可能存在多個稅務違規風險點，需要立即進行專業健診！';
+    document.getElementById('r-rank').textContent='🥉';
+    document.getElementById('r-title').textContent='⚠️ 高風險警報！需要立即協助！';
+    document.getElementById('r-stars').textContent='★☆☆☆☆';
+    document.getElementById('r-msg').textContent='帳務風險評估為高！您的公司可能存在多個稅務違規風險點，需要立即進行專業健診！';
     const miss=QS.length-G.okCount;
-    warnHTML=`<div class="result-warn">🚨 ISTA 警報：艦隊財務風險：<strong>高</strong>！稽查艦隊隨時可能發動掃描！<br>偵測到 ${miss} 個高風險點，需立即處理！</div>`;
-    ctaHTML=`<button class="cta-btn cta-red" onclick="openCTA('danger')">🚨 緊急呼叫！立即連線星際財務指揮官！</button><div class="cta-note" style="color:var(--red);">讓專業指揮官拯救你的艦隊財務！</div>`;
+    warnHTML=`<div class="result-warn">🚨 系統警告：你的公司帳務風險：<strong>高</strong>！隨時可能被國稅局盯上！<br>發現 ${miss} 個高風險點，需立即處理！</div>`;
+    ctaHTML=`<button class="cta-btn cta-red" onclick="openCTA('danger')">🚨 請立即預約專業會計師緊急諮詢！</button><div class="cta-note" style="color:var(--red);">讓專業團隊拯救你的財務安全！</div>`;
   }
-  document.getElementById('r-rank').textContent=rank;
-  document.getElementById('r-title').textContent=title;
-  document.getElementById('r-stars').textContent=stars;
-  document.getElementById('r-msg').textContent=msg;
   document.getElementById('r-warnbox').innerHTML=warnHTML;
   document.getElementById('r-cta').innerHTML=ctaHTML;
   document.getElementById('col-items').innerHTML=
@@ -960,14 +955,14 @@ function openCTA(type){
   const t=document.getElementById('modal-title');
   const b=document.getElementById('modal-body');
   if(type==='gold'){
-    t.innerHTML='🌟 解鎖星際精英獎勵！';
-    b.innerHTML='你的財務直覺已達<strong>星際精英等級</strong>！我們誠摯邀請你與專業財務指揮官進行<strong>15分鐘深度艦隊財務健檢</strong>，讓艦隊財務更上一層樓。<br><br>📡 預約後指揮官將主動與你聯繫，完全免費，無任何壓力！';
+    t.innerHTML='🏆 恭喜解鎖免費諮詢！';
+    b.innerHTML='您的稅務直覺優異！我們誠摯邀請您與專業會計師進行<strong>15分鐘深度財務健檢</strong>，讓您的公司財務更上一層樓。<br><br>📞 預約後會計師將主動與您聯繫，完全免費，無任何壓力！';
   }else if(type==='mid'){
-    t.innerHTML='📡 艦隊財務修復方案';
-    b.innerHTML='根據你的任務評分，已為你生成<strong>個人化艦隊財務修復方案</strong>，並建議預約一次專業諮詢，讓財務指揮官幫你把所有潛在漏洞一次補齊！<br><br>現在預約，享受<strong>首次諮詢優惠</strong>！';
+    t.innerHTML='📊 個人化改善報告';
+    b.innerHTML='根據您的答題結果，我們已為您準備<strong>個人化稅務改善建議報告</strong>，並建議預約一次專業諮詢，讓會計師幫您把所有潛在漏洞一次補齊！<br><br>現在預約，享受<strong>首次諮詢優惠</strong>！';
   }else{
-    t.innerHTML='🚨 緊急財務救援';
-    b.innerHTML='你的艦隊財務評估顯示需要<strong>立即介入</strong>！我們的星際財務指揮官將優先為你安排<strong>緊急財務健診</strong>，協助你在稽查艦隊掃描前先行整理，降低風險。<br><br>⏰ <strong>名額有限，請盡快預約！</strong>';
+    t.innerHTML='🚨 緊急諮詢預約';
+    b.innerHTML='您的帳務風險評估顯示需要<strong>立即處理</strong>！我們的專業會計師團隊將優先為您安排<strong>緊急財務健診</strong>，協助您在被查帳前先行整理，降低風險。<br><br>⏰ <strong>名額有限，請盡快預約！</strong>';
   }
   document.getElementById('modal-cta').classList.add('show');
 }
